@@ -1159,7 +1159,7 @@ class DefaultDatabaseClient implements DatabaseClient, ConnectionAccessor {
 
 				@Override
 				public Mono<Integer> rowsUpdated() {
-					return Mono.from(objectToInsert).flatMapMany(toInsert -> exchange(toInsert, mappingFunction).rowsUpdated())
+					return Flux.from(objectToInsert).flatMap(toInsert -> exchange(toInsert, mappingFunction).rowsUpdated())
 							.collect(Collectors.summingInt(Integer::intValue));
 				}
 			};
